@@ -1,4 +1,5 @@
 2D Mechanical Clock Simulation
+
 This is a C++ project that simulates a mechanical analog clock using the SFML library. It was developed for a Computer Graphics and Visualisation course to demonstrate real-time coordinate transformations and line-drawing algorithms.
 +2
 
