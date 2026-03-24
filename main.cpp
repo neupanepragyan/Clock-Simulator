@@ -6,7 +6,7 @@
 #include "Menu.hpp"
 #include "Line.hpp"
 #include "Circle.hpp"
-//2d analog clock simulator
+
 const float PI = 3.14159265f;
 
 sf::Vector2f rotatePoint(sf::Vector2f point, sf::Vector2f center, float angleDegrees) {
@@ -27,7 +27,7 @@ sf::Vector2f rotatePoint(sf::Vector2f point, sf::Vector2f center, float angleDeg
 
 int main() {
     //Main window definition
-    sf::RenderWindow window(sf::VideoMode({600, 600}), "Manual Mechanical Clock - 081BCT049");
+    sf::RenderWindow window(sf::VideoMode({600, 600}), "Mechanical Clock");
     window.setFramerateLimit(60);
 
     //Defining font for menu
@@ -36,16 +36,20 @@ int main() {
 
     //Option Menu Definition
     Menu menu(600, 600, font);
-    enum { MENU, RUN } state = MENU;
+    enum { MENU, RUN } state = MENU; //Start with initial state as MENU
 
     //Center of clock
     sf::Vector2f center(300, 300);
 
     //Clock face definition
     Circle outer_circle(300, 300, 250, sf::Color::Black);
-    Circle inner_circle(300, 300, 251, sf::Color::Red);
+    Circle inner_circle1(300, 300, 251, sf::Color::Blue);
+    Circle inner_circle2(300, 300, 252, sf::Color::Blue);
+    Circle inner_circle3(300, 300, 253, sf::Color::Blue);
     outer_circle.draw_algorithm();
-    inner_circle.draw_algorithm();
+    inner_circle1.draw_algorithm(); //Drawing multiple of these to get a thicker looking circle.
+    inner_circle2.draw_algorithm();
+    inner_circle3.draw_algorithm();
 
     //Time keeping variables definition
     int h = 0, m = 0, s = 0;
@@ -89,13 +93,25 @@ int main() {
 
             //Circular watch face rendering
             outer_circle.render(window);
-            inner_circle.render(window);
+            inner_circle1.render(window);
+            inner_circle2.render(window);
+            inner_circle3.render(window);
             
             //Hour Markers
             for (int i = 0; i < 12; i++) {
                 sf::Vector2f p1 = rotatePoint({300, 70}, center, i * 30.f);
                 sf::Vector2f p2 = rotatePoint({300, 50}, center, i * 30.f);
                 Line temp(p1.x, p1.y, p2.x, p2.y, sf::Color::Black);
+
+                if (i % 3 == 0){
+                    Line temp1(p1.x+1, p1.y+1, p2.x+1, p2.y+1, sf::Color::Magenta);
+                    Line temp2(p1.x-1, p1.y-1, p2.x-1, p2.y-1, sf::Color::Magenta);
+                    temp1.draw_algorithm();
+                    temp2.draw_algorithm();
+                    temp1.render(window);
+                    temp2.render(window);
+                }
+
                 temp.draw_algorithm();
                 temp.render(window);
             }
@@ -109,15 +125,45 @@ int main() {
             sf::Vector2f hTip = rotatePoint({300, 160}, center, hAngle);
 
             //Drawing updated hand postion.
+
+            //Second Hand
             Line secondHand(center.x, center.y, sTip.x, sTip.y, sf::Color::Red);
             secondHand.draw_algorithm();
             secondHand.render(window);
+            Line secondHand_bold1(center.x+.5, center.y+.5, sTip.x, sTip.y, sf::Color::Red);
+            secondHand_bold1.draw_algorithm();
+            secondHand_bold1.render(window);
+            Line secondHand_bold2(center.x-.5, center.y-.5, sTip.x, sTip.y, sf::Color::Red);
+            secondHand_bold2.draw_algorithm();
+            secondHand_bold2.render(window);
+
+            //Minute Hand
             Line minuteHand(center.x, center.y, mTip.x, mTip.y, sf::Color::Black);
             minuteHand.draw_algorithm();
             minuteHand.render(window);
+            Line minuteHand_bold1(center.x+1, center.y+1, mTip.x, mTip.y, sf::Color::Black);
+            minuteHand_bold1.draw_algorithm();
+            minuteHand_bold1.render(window);
+            Line minuteHand_bold2(center.x-1, center.y-1, mTip.x, mTip.y, sf::Color::Black);
+            minuteHand_bold2.draw_algorithm();
+            minuteHand_bold2.render(window);
+
+            //Hour Hand
             Line hourHand(center.x, center.y, hTip.x, hTip.y, sf::Color::Green);
             hourHand.draw_algorithm();
             hourHand.render(window);
+            Line hourHand_bold1(center.x+4, center.y+4, hTip.x, hTip.y, sf::Color::Green);
+            hourHand_bold1.draw_algorithm();
+            hourHand_bold1.render(window);
+            Line hourHand_bold2(center.x-4, center.y-4, hTip.x, hTip.y, sf::Color::Green);
+            hourHand_bold2.draw_algorithm();
+            hourHand_bold2.render(window);        
+            Line hourHand_bold3(center.x+2, center.y+2, hTip.x, hTip.y, sf::Color::Green);
+            hourHand_bold3.draw_algorithm();
+            hourHand_bold3.render(window);
+            Line hourHand_bold4(center.x-2, center.y-2, hTip.x, hTip.y, sf::Color::Green);
+            hourHand_bold4.draw_algorithm();
+            hourHand_bold4.render(window);        
         }
         window.display();
     }
