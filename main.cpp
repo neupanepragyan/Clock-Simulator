@@ -6,7 +6,7 @@
 #include "Menu.hpp"
 #include "Line.hpp"
 #include "Circle.hpp"
-
+//2d analog clock simulator
 const float PI = 3.14159265f;
 
 sf::Vector2f rotatePoint(sf::Vector2f point, sf::Vector2f center, float angleDegrees) {
