@@ -14,7 +14,7 @@ Real-Time Physics: Uses rotation matrices and trigonometry to calculate the exac
 
 How to Run
 
-Prerequisites: Ensure you have the SFML development files installed on your system.
+Prerequisites: Ensure you have the SFML(SFML-3.0.2) development files installed on your system.
 
 Compile: Open your terminal in the project folder and run the following command to link the graphics, window, and system modules:
 
